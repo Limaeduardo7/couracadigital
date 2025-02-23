@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Simulador from '@/components/Simulador';
 import Navbar from '@/components/Navbar';
-import { Calculator, Shield, Clock, CheckCircle2, ArrowRight, Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from 'lucide-react';
+import { Calculator, Shield, Clock, CheckCircle2, ArrowRight, Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Building2, Lightbulb, Wallet, Car } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -56,10 +56,11 @@ export default function Home() {
         <section id="servicos" className="py-16 glass-effect">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-gradient mb-12">Nossos Serviços</h2>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Empréstimo Consignado */}
               <div className="p-8 rounded-xl glass-effect hover-glow">
                 <div className="flex items-center gap-4 mb-6">
-                  <Calculator className="w-8 h-8 text-blue-400" />
+                  <Building2 className="w-8 h-8 text-blue-400" />
                   <h3 className="text-xl font-semibold text-white">Empréstimo Consignado</h3>
                 </div>
                 <ul className="space-y-4 text-gray-300">
@@ -69,21 +70,75 @@ export default function Home() {
                   </li>
                   <li className="flex items-center gap-3">
                     <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Desconto em folha
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Até 84 parcelas
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
                     Aprovação rápida
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                    Parcelas descontadas em folha
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                    Atendimento personalizado
                   </li>
                 </ul>
               </div>
+
+              {/* Empréstimo Conta de Energia */}
               <div className="p-8 rounded-xl glass-effect hover-glow">
                 <div className="flex items-center gap-4 mb-6">
-                  <Shield className="w-8 h-8 text-blue-400" />
+                  <Lightbulb className="w-8 h-8 text-blue-400" />
+                  <h3 className="text-xl font-semibold text-white">Empréstimo Energia</h3>
+                </div>
+                <ul className="space-y-4 text-gray-300">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Débito na conta de luz
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Sem consulta ao SPC/Serasa
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Parcelas flexíveis
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Processo simplificado
+                  </li>
+                </ul>
+              </div>
+
+              {/* Antecipação FGTS */}
+              <div className="p-8 rounded-xl glass-effect hover-glow">
+                <div className="flex items-center gap-4 mb-6">
+                  <Wallet className="w-8 h-8 text-blue-400" />
+                  <h3 className="text-xl font-semibold text-white">Antecipação FGTS</h3>
+                </div>
+                <ul className="space-y-4 text-gray-300">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Antecipe até 10 saques
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Receba em 24h
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    Menor taxa do mercado
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-blue-400" />
+                    100% digital
+                  </li>
+                </ul>
+              </div>
+
+              {/* Proteção Veicular */}
+              <div className="p-8 rounded-xl glass-effect hover-glow">
+                <div className="flex items-center gap-4 mb-6">
+                  <Car className="w-8 h-8 text-blue-400" />
                   <h3 className="text-xl font-semibold text-white">Proteção Veicular</h3>
                 </div>
                 <ul className="space-y-4 text-gray-300">

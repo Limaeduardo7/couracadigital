@@ -1,45 +1,97 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Calculator, Car, DollarSign, Clock } from 'lucide-react';
+import { Calculator, Car, DollarSign, Clock, Lightbulb, Building2, Wallet } from 'lucide-react';
 
-type SimuladorType = 'emprestimo' | 'protecao';
+type SimuladorType = 'consignado' | 'energia' | 'fgts' | 'protecao';
+type StepType = 'quiz' | 'calculadora';
+
+interface ServicosInfo {
+  [key: string]: {
+    titulo: string;
+    descricao: string;
+    icon: React.ReactNode;
+  };
+}
+
+const SERVICOS: ServicosInfo = {
+  consignado: {
+    titulo: 'Empréstimo Consignado',
+    descricao: 'Empréstimo com desconto em folha de pagamento',
+    icon: <Building2 className="w-6 h-6" />,
+  },
+  energia: {
+    titulo: 'Empréstimo Conta de Energia',
+    descricao: 'Empréstimo com débito na conta de energia',
+    icon: <Lightbulb className="w-6 h-6" />,
+  },
+  fgts: {
+    titulo: 'Antecipação FGTS',
+    descricao: 'Antecipe seu saque aniversário do FGTS',
+    icon: <Wallet className="w-6 h-6" />,
+  },
+  protecao: {
+    titulo: 'Proteção Veicular',
+    descricao: 'Proteção completa para seu veículo',
+    icon: <Car className="w-6 h-6" />,
+  },
+};
 
 export default function Simulador() {
-  const [tipoSimulacao, setTipoSimulacao] = useState<SimuladorType>('emprestimo');
+  const [step, setStep] = useState<StepType>('quiz');
+  const [servicoSelecionado, setServicoSelecionado] = useState<SimuladorType | null>(null);
   const [valor, setValor] = useState('');
   const [parcelas, setParcelas] = useState('');
   const [resultado, setResultado] = useState<number | null>(null);
 
-  const calcularEmprestimo = () => {
+  const calcularConsignado = () => {
     const valorNum = parseFloat(valor.replace(/\D/g, '')) / 100;
     const parcelasNum = parseInt(parcelas);
-    
-    // Taxa de juros mensal (exemplo: 1.5%)
-    const taxaMensal = 0.015;
-    
-    // Cálculo da parcela usando a fórmula de amortização
+    const taxaMensal = 0.015; // 1.5% ao mês
     const parcela = (valorNum * (taxaMensal * Math.pow(1 + taxaMensal, parcelasNum))) / 
                    (Math.pow(1 + taxaMensal, parcelasNum) - 1);
-    
     setResultado(parcela);
+  };
+
+  const calcularEnergia = () => {
+    const valorNum = parseFloat(valor.replace(/\D/g, '')) / 100;
+    const parcelasNum = parseInt(parcelas);
+    const taxaMensal = 0.018; // 1.8% ao mês
+    const parcela = (valorNum * (taxaMensal * Math.pow(1 + taxaMensal, parcelasNum))) / 
+                   (Math.pow(1 + taxaMensal, parcelasNum) - 1);
+    setResultado(parcela);
+  };
+
+  const calcularFGTS = () => {
+    const valorNum = parseFloat(valor.replace(/\D/g, '')) / 100;
+    // Taxa de desconto de 2% ao mês
+    const taxaDesconto = 0.02;
+    const valorAntecipado = valorNum * (1 - taxaDesconto);
+    setResultado(valorAntecipado);
   };
 
   const calcularProtecao = () => {
     const valorVeiculo = parseFloat(valor.replace(/\D/g, '')) / 100;
-    // Taxa mensal média de 3% do valor do veículo ao ano
-    const taxaAnual = 0.03;
+    const taxaAnual = 0.03; // 3% do valor do veículo ao ano
     const valorMensal = (valorVeiculo * taxaAnual) / 12;
-    
     setResultado(valorMensal);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (tipoSimulacao === 'emprestimo') {
-      calcularEmprestimo();
-    } else {
-      calcularProtecao();
+    switch (servicoSelecionado) {
+      case 'consignado':
+        calcularConsignado();
+        break;
+      case 'energia':
+        calcularEnergia();
+        break;
+      case 'fgts':
+        calcularFGTS();
+        break;
+      case 'protecao':
+        calcularProtecao();
+        break;
     }
   };
 
@@ -52,38 +104,72 @@ export default function Simulador() {
     return formatado;
   };
 
+  const selecionarServico = (servico: SimuladorType) => {
+    setServicoSelecionado(servico);
+    setStep('calculadora');
+    setValor('');
+    setParcelas('');
+    setResultado(null);
+  };
+
+  const voltarParaQuiz = () => {
+    setStep('quiz');
+    setServicoSelecionado(null);
+    setValor('');
+    setParcelas('');
+    setResultado(null);
+  };
+
+  if (step === 'quiz') {
+    return (
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {Object.entries(SERVICOS).map(([key, servico]) => (
+            <button
+              key={key}
+              onClick={() => selecionarServico(key as SimuladorType)}
+              className="p-6 glass-effect rounded-xl hover-glow transition-all flex flex-col items-center text-center"
+            >
+              <div className="text-blue-400 mb-4">
+                {servico.icon}
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">
+                {servico.titulo}
+              </h3>
+              <p className="text-gray-300 text-sm">
+                {servico.descricao}
+              </p>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-md mx-auto glass-effect p-8 rounded-xl">
-      <div className="flex gap-4 mb-8">
-        <button
-          className={`flex-1 py-3 px-4 rounded-lg transition hover-glow flex items-center justify-center gap-2 ${
-            tipoSimulacao === 'emprestimo'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-800 text-gray-300'
-          }`}
-          onClick={() => setTipoSimulacao('emprestimo')}
-        >
-          <Calculator className="w-5 h-5" />
-          Empréstimo
-        </button>
-        <button
-          className={`flex-1 py-3 px-4 rounded-lg transition hover-glow flex items-center justify-center gap-2 ${
-            tipoSimulacao === 'protecao'
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-800 text-gray-300'
-          }`}
-          onClick={() => setTipoSimulacao('protecao')}
-        >
-          <Car className="w-5 h-5" />
-          Proteção Veicular
-        </button>
+      <button
+        onClick={voltarParaQuiz}
+        className="mb-6 text-gray-300 hover:text-white transition flex items-center gap-2"
+      >
+        ← Voltar para serviços
+      </button>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-bold text-white mb-2">
+          {SERVICOS[servicoSelecionado!].titulo}
+        </h3>
+        <p className="text-gray-300">
+          {SERVICOS[servicoSelecionado!].descricao}
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
             <DollarSign className="w-4 h-4 text-blue-400" />
-            {tipoSimulacao === 'emprestimo' ? 'Valor do Empréstimo' : 'Valor do Veículo'}
+            {servicoSelecionado === 'protecao' ? 'Valor do Veículo' : 
+             servicoSelecionado === 'fgts' ? 'Valor do FGTS' : 'Valor Desejado'}
           </label>
           <input
             type="text"
@@ -94,7 +180,7 @@ export default function Simulador() {
           />
         </div>
 
-        {tipoSimulacao === 'emprestimo' && (
+        {servicoSelecionado !== 'fgts' && servicoSelecionado !== 'protecao' && (
           <div>
             <label className="block text-sm font-medium text-white mb-2 flex items-center gap-2">
               <Clock className="w-4 h-4 text-blue-400" />
@@ -111,8 +197,12 @@ export default function Simulador() {
               <option value="36">36x</option>
               <option value="48">48x</option>
               <option value="60">60x</option>
-              <option value="72">72x</option>
-              <option value="84">84x</option>
+              {servicoSelecionado === 'consignado' && (
+                <>
+                  <option value="72">72x</option>
+                  <option value="84">84x</option>
+                </>
+              )}
             </select>
           </div>
         )}
@@ -131,7 +221,8 @@ export default function Simulador() {
           <h4 className="text-lg font-semibold text-white mb-4">Resultado da Simulação</h4>
           <div className="space-y-2">
             <p className="text-gray-300">
-              {tipoSimulacao === 'emprestimo' ? 'Valor da Parcela:' : 'Mensalidade:'}
+              {servicoSelecionado === 'fgts' ? 'Valor Antecipado:' :
+               servicoSelecionado === 'protecao' ? 'Mensalidade:' : 'Valor da Parcela:'}
             </p>
             <p className="text-2xl font-bold text-blue-400">
               {resultado.toLocaleString('pt-BR', {
@@ -139,7 +230,7 @@ export default function Simulador() {
                 currency: 'BRL'
               })}
             </p>
-            {tipoSimulacao === 'emprestimo' && parcelas && (
+            {servicoSelecionado !== 'fgts' && servicoSelecionado !== 'protecao' && parcelas && (
               <p className="text-sm text-gray-400">
                 Em {parcelas} parcelas
               </p>
