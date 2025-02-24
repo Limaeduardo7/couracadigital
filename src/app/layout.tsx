@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import ChatButton from "@/components/ChatButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +38,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="scroll-smooth">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <ChatButton />
+        </Providers>
       </body>
     </html>
   );

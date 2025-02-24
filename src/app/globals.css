@@ -128,4 +128,13 @@
                 0 0 20px theme('colors.blue.400'),
                 0 0 30px theme('colors.purple.400');
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
 } 

@@ -192,73 +192,75 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer className="glass-effect py-12">
+        <footer className="py-12 glass-effect border-t border-blue-900/30">
           <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-3 gap-12">
+            <div className="grid md:grid-cols-3 gap-10">
               <div>
-                <h3 className="text-xl font-bold mb-6 text-gradient">Couraça Digital</h3>
-                <p className="text-gray-300 mb-6">
-                  Soluções financeiras e proteção veicular para sua tranquilidade.
+                <h3 className="text-xl font-bold text-white mb-6">Couraça Digital</h3>
+                <p className="text-gray-300 mb-4">
+                  Soluções financeiras e proteção veicular com as melhores taxas do mercado.
                 </p>
-                <div className="flex gap-4">
-                  <a href="#" className="text-gray-300 hover:text-white transition">
-                    <Instagram className="w-6 h-6" />
+                <div className="flex space-x-4 mt-6">
+                  <a href="#" className="text-gray-300 hover:text-blue-400 transition">
+                    <Instagram className="w-5 h-5" />
                   </a>
-                  <a href="#" className="text-gray-300 hover:text-white transition">
-                    <Facebook className="w-6 h-6" />
+                  <a href="#" className="text-gray-300 hover:text-blue-400 transition">
+                    <Facebook className="w-5 h-5" />
                   </a>
-                  <a href="#" className="text-gray-300 hover:text-white transition">
-                    <Linkedin className="w-6 h-6" />
+                  <a href="#" className="text-gray-300 hover:text-blue-400 transition">
+                    <Linkedin className="w-5 h-5" />
                   </a>
                 </div>
               </div>
               <div>
-                <h4 className="text-lg font-semibold mb-6 text-white">Contato</h4>
-                <ul className="space-y-4">
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <Phone className="w-5 h-5 text-blue-400" />
-                    (XX) XXXX-XXXX
+                <h3 className="text-xl font-bold text-white mb-6">Contato</h3>
+                <ul className="space-y-4 text-gray-300">
+                  <li className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">Localizado em:</p>
+                      <p>Galeria Avenida center</p>
+                      <p>R. Franklin Rooselvelt, 110 - Ponto Central</p>
+                      <p>Feira de Santana - BA, 44075-397</p>
+                    </div>
                   </li>
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <Mail className="w-5 h-5 text-blue-400" />
-                    contato@couracadigital.com.br
+                  <li className="flex items-center gap-3">
+                    <Phone className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                    <div>
+                      <p>(75) 3025-0077</p>
+                    </div>
                   </li>
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <MapPin className="w-5 h-5 text-blue-400" />
-                    Endereço da empresa
-                  </li>
-                  <li className="flex items-center gap-3 text-gray-300">
-                    <Clock className="w-5 h-5 text-blue-400" />
-                    Segunda a Sexta: 9h às 18h
+                  <li className="flex items-center gap-3">
+                    <Mail className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                    <div>
+                      <p>contato@couracadigital.com.br</p>
+                    </div>
                   </li>
                 </ul>
               </div>
               <div>
-                <h4 className="text-lg font-semibold mb-6 text-white">Links Rápidos</h4>
-                <ul className="space-y-3">
+                <h3 className="text-xl font-bold text-white mb-6">Links</h3>
+                <ul className="space-y-3 text-gray-300">
                   <li>
-                    <Link href="#servicos" className="text-gray-300 hover:text-white transition flex items-center gap-2">
-                      <ArrowRight className="w-4 h-4" />
-                      Serviços
-                    </Link>
+                    <a href="#" className="hover:text-blue-400 transition">Início</a>
                   </li>
                   <li>
-                    <Link href="#simulador" className="text-gray-300 hover:text-white transition flex items-center gap-2">
-                      <ArrowRight className="w-4 h-4" />
-                      Simulador
-                    </Link>
+                    <a href="#servicos" className="hover:text-blue-400 transition">Serviços</a>
                   </li>
                   <li>
-                    <Link href="#sobre" className="text-gray-300 hover:text-white transition flex items-center gap-2">
-                      <ArrowRight className="w-4 h-4" />
-                      Sobre
-                    </Link>
+                    <a href="#simulador" className="hover:text-blue-400 transition">Simulador</a>
+                  </li>
+                  <li>
+                    <a href="#sobre" className="hover:text-blue-400 transition">Sobre Nós</a>
+                  </li>
+                  <li>
+                    <a href="#contato" className="hover:text-blue-400 transition">Contato</a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="mt-12 pt-8 border-t border-white/10 text-center text-gray-300">
-              <p>© 2024 Couraça Digital. Todos os direitos reservados.</p>
+            <div className="mt-12 pt-6 border-t border-blue-900/30 text-center text-gray-400">
+              <p>&copy; {new Date().getFullYear()} Couraça Digital. Todos os direitos reservados.</p>
             </div>
           </div>
         </footer>
